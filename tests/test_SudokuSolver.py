@@ -1,6 +1,6 @@
 import unittest
 
-from .context import SudokuSolver
+from SudokuSolver import SudokuSolver
 
 
 class SudokuSolverTest(unittest.TestCase):
