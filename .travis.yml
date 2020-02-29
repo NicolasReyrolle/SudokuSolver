@@ -10,5 +10,5 @@ install:
 script:
   pytest --cov=./
 after_success:
-  - codecov # submit coverage
+  bash <(curl -s https://codecov.io/bash)
   
