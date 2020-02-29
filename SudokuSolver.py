@@ -1,5 +1,6 @@
 from math import trunc
 
+
 class SudokuSolver:
     grid = None
 
