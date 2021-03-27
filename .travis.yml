@@ -17,5 +17,4 @@ after_success:
 env:
   global:
     - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
-    - CODECLIMATE_REPO_TOKEN=[token]
-    - CC_TEST_REPORTER_ID=[id]
+    - CC_TEST_REPORTER_ID=439e6792c52dd44a97851f2bc8a33f52f31a08dc401414840aa399a812fb10ab
