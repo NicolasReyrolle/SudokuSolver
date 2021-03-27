@@ -41,5 +41,6 @@ class SudokuSolverTest(unittest.TestCase):
     def test_in_square_is_false(self):
         self.assertFalse(self.s.is_possible(1, 1, 3))
 
+
 if __name__ == '__main__':
     unittest.main()

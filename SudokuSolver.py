@@ -1,5 +1,7 @@
 from math import trunc
 
+from SudokuGrid import SudokuGrid
+
 
 class SudokuSolver:
     grid = None
@@ -61,13 +63,40 @@ class SudokuSolver:
         return True
 
     def solve(self):
-        print(self.is_possible(0, 0, 8))
+        for x in range(9):
+            for y in range(9):
+                if self.grid[x][y] == 0:
+                    for n in range(9):
+                        if self.is_possible(y, x, n + 1):
+                            print("Value " + str(n + 1) + " possible in (" + str(x) + "," + str(y) + ")")
+                            self.grid[x][y] = n + 1
+                            self.print_grid()
+                            input("Press Enter to continue...")
+                            self.solve()
+                            self.grid[x][y] = 0
+        self.print_grid()
 
     def main(self):
-        self.load_grid()
+        grid = [
+            [4, 0, 0, 0, 0, 5, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 9, 8],
+            [3, 0, 0, 0, 8, 2, 4, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 8, 0],
+            [9, 0, 3, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 3, 0, 6, 7, 0],
+            [0, 5, 0, 0, 0, 9, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 9, 0, 7],
+            [6, 4, 0, 3, 0, 0, 0, 0, 0],
+        ]
+
+        self.load_grid(grid)
         self.solve()
         self.print_grid()
 
 
 if __name__ == '__main__':
-    SudokuSolver.main()
+    # s = SudokuSolver()
+    # s.main()
+
+    g = SudokuGrid()
+    g.print()
