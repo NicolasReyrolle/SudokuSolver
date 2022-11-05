@@ -50,6 +50,15 @@ class SudokuGridTest(unittest.TestCase):
 
         self.assertFalse(raised, "Printing should not raise an exception")
 
+    def test_count_possible_values_zero(self):
+        self.assertEqual(0, self.g.count_possible_values(0, 0))
+
+    def test_count_possible_values_three(self):
+        self.assertEqual(3, self.g.count_possible_values(1, 0))
+
+    def test_count_possible_values_six(self):
+        self.assertEqual(6, self.g.count_possible_values(0, 1))
+
 
 if __name__ == '__main__':
     unittest.main()

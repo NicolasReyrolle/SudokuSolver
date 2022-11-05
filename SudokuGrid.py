@@ -69,6 +69,14 @@ class SudokuGrid:
         # Still there, we are good
         return True
 
+    # Count the number of possible values in one box
+    def count_possible_values(self, x: int, y: int):
+        count = 0
+        for n in range(9):
+            if self.is_possible(y, x, n + 1):
+                count = count + 1
+        return count
+
     def solve(self):
         for x in range(9):
             self.solve_row(x)
