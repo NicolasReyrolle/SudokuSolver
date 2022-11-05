@@ -43,37 +43,40 @@ class SudokuGrid:
     def load(self, sudoku_grid):
         self.grid = sudoku_grid
 
-    def is_possible(self, x: int, y: int, n: int) -> bool:
+    def get_value_at(self, line: int, column: int):
+        return self.grid[line][column]
+
+    def is_possible(self, line: int, column: int, value: int) -> bool:
         # Check we do not already have the value
-        if self.grid[x][y] != 0:
+        if self.get_value_at(line, column) != 0:
             return False
 
         # Check the line
         for j in range(9):
-            if self.grid[y][j] == n:
+            if self.get_value_at(line, j) == value:
                 return False
 
         # Check the column
         for i in range(9):
-            if self.grid[i][x] == n:
+            if self.get_value_at(i, column) == value:
                 return False
 
         # Check the square
-        square_x = trunc(x / 3)
-        square_y = trunc(y / 3)
+        square_line = trunc(line / 3)
+        square_column = trunc(column / 3)
         for i in range(3):
             for j in range(3):
-                if self.grid[square_y * 3 + i][square_x * 3 + j] == n:
+                if self.get_value_at(square_line * 3 + j, square_column * 3 + i) == value:
                     return False
 
         # Still there, we are good
         return True
 
     # Count the number of possible values in one box
-    def count_possible_values(self, x: int, y: int):
+    def count_possible_values(self, line: int, column: int):
         count = 0
         for n in range(9):
-            if self.is_possible(y, x, n + 1):
+            if self.is_possible(line, column, n + 1):
                 count = count + 1
         return count
 

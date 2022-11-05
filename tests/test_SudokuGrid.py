@@ -20,20 +20,29 @@ class SudokuGridTest(unittest.TestCase):
         ]
         self.g.load(grid)
 
+    def test_get_value_at(self):
+        self.assertEqual(6, self.g.get_value_at(8, 0))
+
+    def test_get_value_at2(self):
+        self.assertEqual(7, self.g.get_value_at(7, 8))
+
     def test_value_is_already_present(self):
         self.assertFalse(self.g.is_possible(0, 0, 4))
 
+    def test_value_is_already_present2(self):
+        self.assertFalse(self.g.is_possible(8, 0, 2))
+
     def test_in_line_is_true(self):
-        self.assertTrue(self.g.is_possible(1, 0, 9))
+        self.assertTrue(self.g.is_possible(1, 0, 2))
 
     def test_in_line_is_false(self):
-        self.assertFalse(self.g.is_possible(1, 0, 5))
+        self.assertFalse(self.g.is_possible(1, 0, 9))
 
     def test_in_column_is_true(self):
-        self.assertTrue(self.g.is_possible(0, 1, 5))
+        self.assertTrue(self.g.is_possible(0, 1, 2))
 
     def test_in_column_is_false(self):
-        self.assertFalse(self.g.is_possible(0, 1, 6))
+        self.assertFalse(self.g.is_possible(0, 1, 4))
 
     def test_in_square_is_true(self):
         self.assertTrue(self.g.is_possible(1, 1, 2))
