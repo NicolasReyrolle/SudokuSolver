@@ -12,7 +12,7 @@ class SudokuGridTest(unittest.TestCase):
             [0, 0, 0, 0, 0, 0, 1, 9, 8],
             [3, 0, 0, 0, 8, 2, 4, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 8, 0],
-            [9, 0, 3, 0, 0, 0, 0, 0, 0],
+            [9, 8, 7, 6, 5, 4, 3, 2, 0],
             [0, 0, 0, 0, 3, 0, 6, 7, 0],
             [0, 5, 0, 0, 0, 9, 0, 0, 0],
             [0, 0, 0, 2, 0, 0, 9, 0, 7],
@@ -22,6 +22,12 @@ class SudokuGridTest(unittest.TestCase):
 
     def test_get_value_at(self):
         self.assertEqual(6, self.g.get_value_at(8, 0))
+
+    def test_set_value_at(self):
+        self.g.set_value_at(0, 0, 9)
+        self.assertEqual(9, self.g.get_value_at(0, 0))
+        self.g.set_value_at(0, 0, 4)
+        self.assertEqual(4, self.g.get_value_at(0, 0))
 
     def test_get_value_at2(self):
         self.assertEqual(7, self.g.get_value_at(7, 8))
@@ -66,7 +72,18 @@ class SudokuGridTest(unittest.TestCase):
         self.assertEqual(3, self.g.count_possible_values(1, 0))
 
     def test_count_possible_values_six(self):
-        self.assertEqual(6, self.g.count_possible_values(0, 1))
+        self.assertEqual(5, self.g.count_possible_values(0, 1))
+
+    def test_count_possible_values_one(self):
+        self.assertEqual(1, self.g.count_possible_values(4, 8))
+
+    def test_solve_single_possibility_per_row(self):
+        self.assertEqual(7, self.g.solve_single_possibility_per_row())
+        self.assertEqual(1, self.g.get_value_at(4, 8))
+        self.g.print()
+
+    def test_get_first_possible_value(self):
+        self.assertEqual(1, self.g.get_first_possible_value(4, 8))
 
 
 if __name__ == '__main__':

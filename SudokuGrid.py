@@ -46,6 +46,9 @@ class SudokuGrid:
     def get_value_at(self, line: int, column: int):
         return self.grid[line][column]
 
+    def set_value_at(self, line: int, column: int, value: int):
+        self.grid[line][column] = value
+
     def is_possible(self, line: int, column: int, value: int) -> bool:
         # Check we do not already have the value
         if self.get_value_at(line, column) != 0:
@@ -73,29 +76,49 @@ class SudokuGrid:
         return True
 
     # Count the number of possible values in one box
-    def count_possible_values(self, line: int, column: int):
+    def get_first_possible_value(self, line: int, column: int) -> int:
+        if self.get_value_at(line, column) != 0:
+            return self.get_value_at(line, column)
+        else:
+            for n in range(1, 10):
+                if self.is_possible(line, column, n):
+                    return n
+
+        # If we are here it means there is no possible value
+        raise Exception("No possible value found")
+
+    # Count the number of possible values in one box
+    def count_possible_values(self, line: int, column: int) -> int:
         count = 0
-        for n in range(9):
-            if self.is_possible(line, column, n + 1):
+        for n in range(1, 10):
+            if self.is_possible(line, column, n):
                 count = count + 1
         return count
 
+    # Solve (by rows) the boxes where there is only one possibility and return the number of boxes solved
+    def solve_single_possibility_per_row(self) -> int:
+        count = 0
+
+        for line in range(9):
+            for column in range(9):
+                if self.count_possible_values(line, column) == 1:
+                    self.set_value_at(line, column, self.get_first_possible_value(line, column))
+                    count = count + 1
+
+        return count
+
     def solve(self):
-        for x in range(9):
-            self.solve_row(x)
+
+        stage = 1
+
+        while True:
+            number_resolved = 0
+            number_resolved = number_resolved + self.solve_single_possibility_per_row()
+
+            print("Stage " + str(stage) + " " + str(number_resolved) + " boxes resolved")
+            if number_resolved == 0:
+                break
+
+            stage = stage + 1
+
         self.print()
-
-    def solve_row(self, x):
-        for y in range(9):
-            self.solve_cell(x, y)
-
-    def solve_cell(self, x, y):
-        if self.grid[x][y] == 0:
-            for n in range(9):
-                if self.is_possible(y, x, n + 1):
-                    print("Value " + str(n + 1) + " possible in (" + str(x) + "," + str(y) + ")")
-                    self.grid[x][y] = n + 1
-                    self.print()
-                    input("Press Enter to continue...")
-                    self.solve()
-                    self.grid[x][y] = 0
