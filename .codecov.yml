@@ -1,3 +1,8 @@
 ignore:
   - "tests/*"
   - "tests/**/*"
+coverage:
+  status:
+    patch:
+      default:
+        informational: true
