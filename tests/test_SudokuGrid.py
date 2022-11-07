@@ -84,6 +84,9 @@ class SudokuGridTest(unittest.TestCase):
     def test_get_first_possible_value(self):
         self.assertEqual(1, self.g.get_first_possible_value(4, 8))
 
+    def test_get_first_possible_value_already_present(self):
+        self.assertEqual(4, self.g.get_first_possible_value(0, 0))
+
 
 if __name__ == '__main__':
     unittest.main()
