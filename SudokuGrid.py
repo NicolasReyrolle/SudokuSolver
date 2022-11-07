@@ -96,7 +96,7 @@ class SudokuGrid:
         return count
 
     # Solve (by rows) the boxes where there is only one possibility and return the number of boxes solved
-    def solve_single_possibility_per_row(self) -> int:
+    def solve_single_possibility(self) -> int:
         count = 0
 
         for line in range(9):
@@ -112,13 +112,14 @@ class SudokuGrid:
         stage = 1
 
         while True:
-            number_resolved = 0
-            number_resolved = number_resolved + self.solve_single_possibility_per_row()
+            self.print()
 
-            print("Stage " + str(stage) + " " + str(number_resolved) + " boxes resolved")
+            number_resolved = 0
+            number_resolved = number_resolved + self.solve_single_possibility()
+
+            print("Stage " + str(stage) + " - " + str(number_resolved) + " box(es) resolved")
+
             if number_resolved == 0:
                 break
 
             stage = stage + 1
-
-        self.print()
