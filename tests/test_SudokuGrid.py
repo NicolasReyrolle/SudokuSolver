@@ -47,6 +47,7 @@ class SudokuGridTest(unittest.TestCase):
             self.g.print()
         except:
             raised = True
+            raise
 
         self.assertFalse(raised, "Printing should not raise an exception")
 
