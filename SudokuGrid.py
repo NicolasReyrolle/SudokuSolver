@@ -6,10 +6,12 @@ class SudokuGrid:
 
     def __init__(self):
 
-        for rows in range(9):
-            row = []
-            for col in range(9):
-                row.append(0)
+        row = []
+        for _ in range(9):
+            row.append(0)
+            
+        for _ in range(9):
+            self.grid.append(row) 
 
     @staticmethod
     def print_frame_line():
