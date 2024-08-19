@@ -59,28 +59,43 @@ class SudokuGrid:
 
     def is_possible_on_line(self, line: int, value: int) -> bool:
         """Check if a value is possible on the line"""
+
+        is_possible = True
+
         for j in range(9):
             if self.grid[line][j] == value:
-                return False
-        return True
+                is_possible = False
+                break
+
+        return is_possible
 
     def is_possible_on_column(self, column: int, value: int) -> bool:
         """Check if a value is possible on the column"""
+
+        is_possible = True
+
         for i in range(9):
             if self.grid[i][column] == value:
-                return False
-        return True
+                is_possible = False
+                break
+
+        return is_possible
 
     def is_possible_on_square(self, column: int, line: int, value: int) -> bool:
         """Check if a value is possible on its square"""
+
+        is_possible = True
+
         square_column = trunc(column / 3)
         square_line = trunc(line / 3)
         for i in range(3):
             for j in range(3):
                 if self.grid[square_line * 3 + i][square_column * 3 + j] == value:
-                    return False
-        return True
-   
+                    is_possible = False
+                    break
+                
+        return is_possible
+
     def solve(self):
         for x in range(9):
             self.solve_row(x)
