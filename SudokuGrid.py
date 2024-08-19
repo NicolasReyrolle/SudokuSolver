@@ -47,12 +47,15 @@ class SudokuGrid:
 
     def is_possible(self, column: int, line: int, value: int) -> bool:
         """Check if the given value can be set at the given place"""
-        
+
         # Check we do not already have the value
         if self.grid[column][line] != 0:
             return False
 
-        return self.is_possible_on_line(line, value) and self.is_possible_on_column(column, value) and self.is_possible_on_square(column, line, value)
+        return (self.is_possible_on_line(line, value) 
+                and self.is_possible_on_column(column, value)
+                and self.is_possible_on_square(column, line, value)
+        )
 
     def is_possible_on_line(self, line: int, value: int) -> bool:
         """Check if a value is possible on the line"""
@@ -60,14 +63,14 @@ class SudokuGrid:
             if self.grid[line][j] == value:
                 return False
         return True
-    
+
     def is_possible_on_column(self, column: int, value: int) -> bool:
         """Check if a value is possible on the column"""
         for i in range(9):
             if self.grid[i][column] == value:
                 return False
         return True
-            
+
     def is_possible_on_square(self, column: int, line: int, value: int) -> bool:
         """Check if a value is possible on its square"""
         square_column = trunc(column / 3)
@@ -77,7 +80,7 @@ class SudokuGrid:
                 if self.grid[square_line * 3 + i][square_column * 3 + j] == value:
                     return False
         return True
-                
+   
     def solve(self):
         for x in range(9):
             self.solve_row(x)
