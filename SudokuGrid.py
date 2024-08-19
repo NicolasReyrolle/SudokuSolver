@@ -93,7 +93,7 @@ class SudokuGrid:
                 if self.grid[square_line * 3 + i][square_column * 3 + j] == value:
                     is_possible = False
                     break
-                
+
         return is_possible
 
     def solve(self):
