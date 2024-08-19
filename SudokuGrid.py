@@ -45,32 +45,39 @@ class SudokuGrid:
     def load(self, sudoku_grid):
         self.grid = sudoku_grid
 
-    def is_possible(self, x: int, y: int, n: int) -> bool:
+    def is_possible(self, column: int, line: int, value: int) -> bool:
+        """Check if the given value can be set at the given place"""
+        
         # Check we do not already have the value
-        if self.grid[x][y] != 0:
+        if self.grid[column][line] != 0:
             return False
 
-        # Check the line
+        return self.is_possible_on_line(line, value) and self.is_possible_on_column(column, value) and self.is_possible_on_square(column, line, value)
+
+    def is_possible_on_line(self, line: int, value: int) -> bool:
+        """Check if a value is possible on the line"""
         for j in range(9):
-            if self.grid[y][j] == n:
+            if self.grid[line][j] == value:
                 return False
-
-        # Check the column
+        return True
+    
+    def is_possible_on_column(self, column: int, value: int) -> bool:
+        """Check if a value is possible on the column"""
         for i in range(9):
-            if self.grid[i][x] == n:
+            if self.grid[i][column] == value:
                 return False
-
-        # Check the square
-        square_x = trunc(x / 3)
-        square_y = trunc(y / 3)
+        return True
+            
+    def is_possible_on_square(self, column: int, line: int, value: int) -> bool:
+        """Check if a value is possible on its square"""
+        square_column = trunc(column / 3)
+        square_line = trunc(line / 3)
         for i in range(3):
             for j in range(3):
-                if self.grid[square_y * 3 + i][square_x * 3 + j] == n:
+                if self.grid[square_line * 3 + i][square_column * 3 + j] == value:
                     return False
-
-        # Still there, we are good
         return True
-
+                
     def solve(self):
         for x in range(9):
             self.solve_row(x)
