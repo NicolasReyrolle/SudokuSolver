@@ -45,16 +45,16 @@ class SudokuGrid:
     def load(self, sudoku_grid):
         self.grid = sudoku_grid
 
-    def is_possible(self, column: int, line: int, value: int) -> bool:
+    def is_possible(self, line: int, column: int, value: int) -> bool:
         """Check if the given value can be set at the given place"""
 
         # Check we do not already have the value
-        if self.grid[column][line] != 0:
+        if self.get_value_at(line, column) != 0:
             return False
 
-        return (self.is_possible_on_line(line, value) 
+        return (self.is_possible_on_line(line, value)
                 and self.is_possible_on_column(column, value)
-                and self.is_possible_on_square(column, line, value)
+                and self.is_possible_on_square(line, column, value)
         )
 
     def is_possible_on_line(self, line: int, value: int) -> bool:
@@ -63,7 +63,7 @@ class SudokuGrid:
         is_possible = True
 
         for j in range(9):
-            if self.grid[line][j] == value:
+            if self.get_value_at(line, j) == value:
                 is_possible = False
                 break
 
@@ -75,13 +75,13 @@ class SudokuGrid:
         is_possible = True
 
         for i in range(9):
-            if self.grid[i][column] == value:
+            if self.get_value_at(i, column) == value:
                 is_possible = False
                 break
 
         return is_possible
 
-    def is_possible_on_square(self, column: int, line: int, value: int) -> bool:
+    def is_possible_on_square(self, line: int, column: int, value: int) -> bool:
         """Check if a value is possible on its square"""
 
         is_possible = True
@@ -90,28 +90,56 @@ class SudokuGrid:
         square_line = trunc(line / 3)
         for i in range(3):
             for j in range(3):
-                if self.grid[square_line * 3 + i][square_column * 3 + j] == value:
+                if self.get_value_at(square_line * 3 + i, square_column * 3 + j) == value:
                     is_possible = False
                     break
+            if not is_possible:
+                break
 
         return is_possible
 
     def solve(self):
-        for x in range(9):
-            self.solve_row(x)
-        self.print()
+        """Try to resolve the puzzle"""
+        while(True):
+            values_found = False
+            for x in range(9):
+                if self.solve_row(x):
+                    values_found = True
+            if not values_found:
+                # We cannot go further on the resolution
+                break
 
     def solve_row(self, x):
+        """Try to solve a line, return true if at least one value found"""
+        count_found = 0
         for y in range(9):
-            self.solve_cell(x, y)
+            if self.solve_cell(x, y):
+                count_found += 1
+                
+        return count_found > 0
 
-    def solve_cell(self, x, y):
-        if self.grid[x][y] == 0:
+    def solve_cell(self, line: int, column: int) -> bool:
+        """Try to find the value at a specific cell, return true if solution found"""
+
+        count_possible_at_cell = 0
+        if self.get_value_at(line, column) == 0:
+            possible_value = 0
             for n in range(9):
-                if self.is_possible(y, x, n + 1):
-                    print("Value " + str(n + 1) + " possible in (" + str(x) + "," + str(y) + ")")
-                    self.grid[x][y] = n + 1
-                    self.print()
-                    input("Press Enter to continue...")
-                    self.solve()
-                    self.grid[x][y] = 0
+                if self.is_possible(line, column, n + 1):
+                    possible_value = n + 1
+                    count_possible_at_cell += 1
+
+            if count_possible_at_cell == 1:
+                print("Value " + str(possible_value) + 
+                      " found in (" + str(line) + "," + str(column) + ")")
+                self.set_value_at(line, column, possible_value)
+    
+        return count_possible_at_cell == 1
+
+    def get_value_at(self, line: int, column: int) -> int:
+        """Return the current value at the given position"""
+        return self.grid[line][column]
+
+    def set_value_at(self, line: int, column: int, value: int):
+        """Set the value at the given position"""
+        self.grid[line][column] = value
