@@ -1,17 +1,12 @@
+import unittest
 
 from SudokuGrid import SudokuGrid
 
 
-class SudokuSolver:
-    grid: SudokuGrid = SudokuGrid()
+class SudokuGridTestSolveComplexProblem(unittest.TestCase):
+    g = SudokuGrid()
 
-    def load_grid(self, sudoku_grid):
-        self.grid.load(sudoku_grid)
-
-    def print_grid(self):
-        self.grid.print()
-
-    def main(self):
+    def setUp(self):
         grid = [
             [0, 0, 0, 0, 0, 0, 0, 0, 7],
             [6, 0, 0, 4, 2, 0, 0, 0, 0],
@@ -23,16 +18,12 @@ class SudokuSolver:
             [0, 0, 0, 0, 0, 0, 0, 0, 8],
             [5, 0, 0, 0, 0, 0, 0, 0, 0],
         ]
+        self.g.load(grid)
 
-        self.load_grid(grid)
-        self.print_grid()
-        self.grid.solve()
-        self.print_grid()
-
-
-def print_frame_line():
-    print(("*" + "-" * 7) * 3 + "*")
-
+    def test_resolution(self):
+        self.g.solve()
+        self.assertTrue(self.g.is_solved())
+        self.assertNotEqual(self.g.get_value_at(3, 7), 9)
 
 if __name__ == '__main__':
-    SudokuSolver().main()
+    unittest.main()
