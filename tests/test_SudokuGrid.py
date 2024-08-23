@@ -51,6 +51,9 @@ class SudokuGridTest(unittest.TestCase):
 
         self.assertFalse(raised, "Printing should not raise an exception")
 
+    def test_value_already_set(self):
+        """Trying to solve a celle already set should not be possible"""
+        self.assertFalse(self.g.is_possible(0, 0, 4))
 
 if __name__ == '__main__':
     unittest.main()

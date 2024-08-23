@@ -27,6 +27,7 @@ class SudokuGridTestSolveColumn(unittest.TestCase):
 
     def test_cannot_resolve(self):
         self.assertFalse(self.g.solve_cell(0, 0))
+        self.assertEqual(self.g.get_value_at(0, 0), 0)
 
 if __name__ == '__main__':
     unittest.main()
