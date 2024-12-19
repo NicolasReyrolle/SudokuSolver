@@ -1,4 +1,7 @@
 name: autoupdate
+permissions:
+  contents: write
+  pull-requests: write
 on:
   # This will trigger on all pushes to all branches.
   push: {}
