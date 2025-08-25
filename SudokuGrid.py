@@ -100,7 +100,7 @@ class SudokuGrid:
 
     def solve(self):
         """Try to resolve the puzzle"""
-        while(True):
+        while True:
             values_found = False
             for x in range(9):
                 if self.solve_row(x):
