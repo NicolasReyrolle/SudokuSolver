@@ -1,6 +1,6 @@
 import unittest
 
-from SudokuGrid import SudokuGrid
+from sudoku_grid import SudokuGrid
 
 
 class SudokuGridTest(unittest.TestCase):

@@ -1,17 +1,21 @@
-
-from SudokuGrid import SudokuGrid
+"""Sudoku solver main module."""
+from sudoku_grid import SudokuGrid
 
 
 class SudokuSolver:
+    """Sudoku solver class."""
     grid: SudokuGrid = SudokuGrid()
 
-    def load_grid(self, sudoku_grid):
+    def load_grid(self, sudoku_grid: list[list[int]]) -> None:
+        """Load a sudoku grid."""
         self.grid.load(sudoku_grid)
 
     def print_grid(self):
+        """Print the sudoku grid."""
         self.grid.print()
 
     def main(self):
+        """Main entry point."""
         grid = [
             [0, 0, 0, 5, 0, 0, 0, 0, 0],
             [0, 3, 0, 6, 0, 0, 7, 0, 2],
@@ -31,6 +35,7 @@ class SudokuSolver:
 
 
 def print_frame_line():
+    """Print a frame line."""
     print(("*" + "-" * 7) * 3 + "*")
 
 
