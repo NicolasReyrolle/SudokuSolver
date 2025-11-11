@@ -6,9 +6,9 @@ from sudoku_grid import SudokuGrid
 
 class SudokuGridTestFirstIssue(unittest.TestCase):
     """Test case for first issue."""
-    g = SudokuGrid()
 
     def setUp(self):
+        self.g = SudokuGrid()
         grid = [
             [4, 2, 1, 0, 0, 5, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 9, 8],

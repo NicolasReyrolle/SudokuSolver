@@ -6,9 +6,9 @@ from sudoku_grid import SudokuGrid
 
 class SudokuGridTestSolveFailure(unittest.TestCase):
     """Test a simple column resolution"""
-    g = SudokuGrid()
 
     def setUp(self):
+        self.g = SudokuGrid()
         grid = [
             [0, 7, 0, 5, 0, 3, 4, 8, 0],
             [0, 3, 0, 6, 0, 0, 7, 0, 2],

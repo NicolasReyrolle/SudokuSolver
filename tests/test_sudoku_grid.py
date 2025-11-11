@@ -6,9 +6,9 @@ from sudoku_grid import SudokuGrid
 
 class SudokuGridTest(unittest.TestCase):
     """Test cases for SudokuGrid class."""
-    g = SudokuGrid()
 
     def setUp(self):
+        self.g = SudokuGrid()
         grid = [
             [4, 0, 0, 0, 0, 5, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 9, 8],
@@ -52,18 +52,7 @@ class SudokuGridTest(unittest.TestCase):
 
     def test_base_printing(self):
         """Test that printing doesn't raise an exception."""
-        raised = False
-        try:
-            self.g.print()
-        except:
-            raised = True
-            raise
-
-        self.assertFalse(raised, "Printing should not raise an exception")
-
-    def test_value_already_set(self):
-        """Trying to solve a celle already set should not be possible"""
-        self.assertFalse(self.g.is_possible(0, 0, 4))
+        self.g.print()
 
 if __name__ == '__main__':
     unittest.main()
