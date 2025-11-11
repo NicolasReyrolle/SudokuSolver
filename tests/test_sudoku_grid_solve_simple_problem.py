@@ -1,9 +1,9 @@
 import unittest
 
-from SudokuGrid import SudokuGrid
+from sudoku_grid import SudokuGrid
 
 
-class SudokuGridTestSolveComplexProblem(unittest.TestCase):
+class SudokuGridTestSolveSimpleProblem(unittest.TestCase):
     g = SudokuGrid()
 
     def setUp(self):
@@ -20,11 +20,9 @@ class SudokuGridTestSolveComplexProblem(unittest.TestCase):
         ]
         self.g.load(grid)
 
-    def test_is_solved(self):
-        """ Test if the grid is solved """
+    def test_resolution(self):
         self.g.solve()
         self.assertTrue(self.g.is_solved())
-        self.assertNotEqual(self.g.get_value_at(3, 7), 9)
 
 if __name__ == '__main__':
     unittest.main()
