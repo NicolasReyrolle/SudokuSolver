@@ -1,12 +1,14 @@
+"""Tests for SudokuGrid simple problem solving."""
 import unittest
 
 from sudoku_grid import SudokuGrid
 
 
 class SudokuGridTestSolveSimpleProblem(unittest.TestCase):
-    g = SudokuGrid()
+    """Test simple problem solving."""
 
     def setUp(self):
+        self.g = SudokuGrid()
         grid = [
             [0, 0, 0, 0, 0, 0, 0, 0, 7],
             [6, 0, 0, 4, 2, 0, 0, 0, 0],
@@ -21,6 +23,7 @@ class SudokuGridTestSolveSimpleProblem(unittest.TestCase):
         self.g.load(grid)
 
     def test_resolution(self):
+        """Test that the grid can be solved."""
         self.g.solve()
         self.assertTrue(self.g.is_solved())
 
