@@ -136,10 +136,10 @@ class SudokuGrid:
                     count_possible_at_cell += 1
 
             if count_possible_at_cell == 1:
-                print("Value " + str(possible_value) + 
+                print("Value " + str(possible_value) +
                       " found in (" + str(line) + "," + str(column) + ")")
                 self.set_value_at(line, column, possible_value)
-    
+
         return count_possible_at_cell == 1
 
     def get_value_at(self, line: int, column: int) -> int:

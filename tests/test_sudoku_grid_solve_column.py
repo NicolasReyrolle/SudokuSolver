@@ -1,3 +1,4 @@
+"""Tests for SudokuGrid column solving."""
 import unittest
 
 from sudoku_grid import SudokuGrid
@@ -22,10 +23,12 @@ class SudokuGridTestSolveColumn(unittest.TestCase):
         self.g.load(grid)
 
     def test_simple_resolution(self):
+        """Test simple column resolution."""
         self.assertTrue(self.g.solve_cell(0, 8))
         self.assertEqual(self.g.get_value_at(0, 8), 9)
 
     def test_cannot_resolve(self):
+        """Test that cell cannot be resolved."""
         self.assertFalse(self.g.solve_cell(0, 0))
         self.assertEqual(self.g.get_value_at(0, 0), 0)
 

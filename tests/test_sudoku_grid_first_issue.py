@@ -1,9 +1,11 @@
+"""Tests for SudokuGrid first issue."""
 import unittest
 
 from sudoku_grid import SudokuGrid
 
 
 class SudokuGridTestFirstIssue(unittest.TestCase):
+    """Test case for first issue."""
     g = SudokuGrid()
 
     def setUp(self):
@@ -21,6 +23,7 @@ class SudokuGridTestFirstIssue(unittest.TestCase):
         self.g.load(grid)
 
     def test_is_false(self):
+        """Test that is_possible returns false."""
         self.assertFalse(self.g.is_possible(4, 0, 2))
 
 
