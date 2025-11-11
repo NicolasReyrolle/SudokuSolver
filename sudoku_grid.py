@@ -1,30 +1,34 @@
+"""Sudoku grid module."""
 from math import trunc
 
 
 class SudokuGrid:
+    """Represents a Sudoku grid."""
     grid = []
 
     def __init__(self):
 
-        row = []
+        row: list[int] = []
         for _ in range(9):
             row.append(0)
-            
+
         for _ in range(9):
-            self.grid.append(row) 
+            self.grid.append(row)
 
     @staticmethod
     def print_frame_line():
+        """Print a frame line."""
         print(("*" + "-" * 7) * 3 + "*")
 
     def print(self):
-
+        """Print the grid."""
         for i in range(9):
             self.print_line(i)
 
         self.print_frame_line()
 
-    def print_line(self, i):
+    def print_line(self, i: int) -> None:
+        """Print a line of the grid."""
         if i % 3 == 0:
             self.print_frame_line()
         line = ""
@@ -32,7 +36,8 @@ class SudokuGrid:
             line = self.print_column(i, j, line)
         print(line + "|")
 
-    def print_column(self, i, j, line):
+    def print_column(self, i: int, j: int, line: str) -> str:
+        """Print a column value."""
         if j % 3 == 0:
             line = line + "| "
         if self.grid[i][j] == 0:
@@ -42,7 +47,8 @@ class SudokuGrid:
         line = line + str(value) + " "
         return line
 
-    def load(self, sudoku_grid):
+    def load(self, sudoku_grid: list[list[int]]) -> None:
+        """Load a sudoku grid."""
         self.grid = sudoku_grid
 
     def is_possible(self, line: int, column: int, value: int) -> bool:
@@ -100,7 +106,7 @@ class SudokuGrid:
 
     def solve(self):
         """Try to resolve the puzzle"""
-        while(True):
+        while True:
             values_found = False
             for x in range(9):
                 if self.solve_row(x):
@@ -109,13 +115,13 @@ class SudokuGrid:
                 # We cannot go further on the resolution
                 break
 
-    def solve_row(self, x):
+    def solve_row(self, x: int) -> bool:
         """Try to solve a line, return true if at least one value found"""
         count_found = 0
         for y in range(9):
             if self.solve_cell(x, y):
                 count_found += 1
-                
+
         return count_found > 0
 
     def solve_cell(self, line: int, column: int) -> bool:
@@ -130,16 +136,16 @@ class SudokuGrid:
                     count_possible_at_cell += 1
 
             if count_possible_at_cell == 1:
-                print("Value " + str(possible_value) + 
+                print("Value " + str(possible_value) +
                       " found in (" + str(line) + "," + str(column) + ")")
                 self.set_value_at(line, column, possible_value)
-    
+
         return count_possible_at_cell == 1
 
     def get_value_at(self, line: int, column: int) -> int:
         """Return the current value at the given position"""
         return self.grid[line][column]
 
-    def set_value_at(self, line: int, column: int, value: int):
+    def set_value_at(self, line: int, column: int, value: int) -> None:
         """Set the value at the given position"""
         self.grid[line][column] = value
