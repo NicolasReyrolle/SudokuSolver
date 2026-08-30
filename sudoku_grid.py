@@ -149,3 +149,11 @@ class SudokuGrid:
     def set_value_at(self, line: int, column: int, value: int) -> None:
         """Set the value at the given position"""
         self.grid[line][column] = value
+
+    def is_solved(self) -> bool:
+        """Indicates if the puzzle is solved or not"""
+        for line in range(9):
+            for column in range(9):
+                if self.get_value_at(line, column) == 0:
+                    return False
+        return True
